@@ -1,11 +1,10 @@
 let extraCanvas;
 let underCanvas;
-//Wee woo
-//saves the whole canvas
+
+//saves the whole canvas into the Pet Object
 function saveToFile(){
-	//When making a server, send the drawing off to a server instead 
-	//of saving to your computer
 	drawnImage = extraCanvas.get();
+	drawnPets.push(new Pets(drawnImage));
 
 }
 

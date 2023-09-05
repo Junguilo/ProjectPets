@@ -2,16 +2,14 @@ let drawnImage;
 let drawnPets = [];
 
 function mouseReleased(){
-	demDog.changeIdle();
-};
-
-let z = 0;
-function createNewPet(){
-    
+	for(let i = 0; i < drawnPets.length; i++){
+		drawnPets[i].changeIdle();
+	}
 }
 
 class Pets{
-	constructor(){
+	constructor(drawnImage){
+		this.drawnImg = drawnImage;
 		this.x = 400;
 		this.y = 400;
 		this.speed = 4;
@@ -56,11 +54,7 @@ class Pets{
 	}
 
 	display(){
-		if(drawnImage){
-			image(drawnImage , this.x, this.y);
-		} else {
-			image(demoDog , this.x, this.y);
-		}
+		image(this.drawnImg , this.x, this.y);
 	}
 
 }
