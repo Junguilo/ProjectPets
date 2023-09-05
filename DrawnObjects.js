@@ -1,6 +1,14 @@
 let drawnImage;
 let drawnPets = [];
 
+
+//saves the whole canvas into the Pet Object
+function saveToFile(){
+	drawnImage = extraCanvas.get();
+	drawnPets.push(new Pets(drawnImage));
+
+}
+
 function mouseReleased(){
 	for(let i = 0; i < drawnPets.length; i++){
 		drawnPets[i].changeIdle();

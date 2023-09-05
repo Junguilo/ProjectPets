@@ -1,12 +1,6 @@
 let extraCanvas;
 let underCanvas;
 
-//saves the whole canvas into the Pet Object
-function saveToFile(){
-	drawnImage = extraCanvas.get();
-	drawnPets.push(new Pets(drawnImage));
-
-}
 
 function clearCanvas(){
 	extraCanvas.clear();
