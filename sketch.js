@@ -44,6 +44,12 @@ function draw()
 		drawnPets[i].move();
 		drawnPets[i].display();
 		drawnPets[i].clicked();
+		for(let j = 0; j < drawnPets.length;j++){
+			if(i != j && drawnPets[i].intersects(drawnPets[j])){
+				drawnPets[i].idle = true;
+				drawnPets[j].idle = true;
+			}
+		}
 	}
 	//you can limit where the mouse can draw by adding clamps or restrictions
 	//do later
