@@ -6,7 +6,11 @@ let drawnPets = [];
 //when theyre all touching each other. 
 
 //Making them all follow the mouse and then all dispersing sounds so nice 
+//You can do this by making them all follow to the same mouse position
+//once THEY ARE ALL IN THE MOUSE POSITION, make them disperse 
+//into a random x and y value within a radius of the mouse click. 
 
+//got the variable when the character is in mouse position
 
 //saves the whole canvas into the Pet Object
 function saveToFile(){
@@ -31,6 +35,8 @@ class Pets{
 		this.lastMouseY = 0;
 		this.r = 30;
 		this.idle = false;
+		this.idleX = false;
+		this.idleY = false;
 		this.intersects;
 	}
 	
@@ -39,43 +45,52 @@ class Pets{
 		this.lastMouseY = mouseY;
 	}
 
-	idling(){
-		if(this.idle){
-			this.speed = 0;
-		} else {
-			this.speed = 4;
-		}
-	}
 
 	move(){
 		scale(1 , 1 + (Math.cos(millis()/400) * .04555), );
-		this.idling();
+		//print("idleX: " + this.idleX);
+		//print("idleY: " + this.idleY);
+		print("idle: " + this.idle);
 	}
 
 
 	//make the pets follow you when you click your mouse in
 	//the scene.
 	clicked(){
-		if(this.lastMouseX != 0 && this.lastMouseY != 0 && this.idle == false){
+		//setting this to 0 makes it so it doesnt move instantly 
+		if(this.lastMouseX != 0 && this.lastMouseY != 0){
+
+			//the reason why I have the +- 1 because of jittering
 			if(this.lastMouseX + 1 < this.x - 1){
 				this.x -= this.speed;
+				this.idleX = false;
 			} else if(this.lastMouseX - 1 > this.x + 1){
 				this.x += this.speed;
-			} 
+				this.idleX = false;
+			} else {
+				this.idleX = true;
+			}
 
 			if(this.lastMouseY + 1 < this.y - 1){
 				this.y -= this.speed;
-			} else if(this.lastMouseY -1 > this.y + 1){
+				this.idleY = false;
+			} else if(this.lastMouseY - 1 > this.y + 1){
 				this.y += this.speed;
-			} 
+				this.idleY = false;
+			}  else {
+				this.idleY = true;
+			}
 
-			if(this.lastMouseX == this.x && this.lastMouseY == this.y){
+			if(this.idleX == true && this.idleY == true){
 				this.idle = true;
+			} else {
+				this.idle = false;
 			}
 		}
 	}
 
 	//bool, checks if theyre colliding with each other, gives a true or false val
+	//Do not put this.idle = true in here, will make the drawings stop entirely for some reaosn. 
 	intersects = function(other){
 		//Get the distances between the ball components
 		let d = dist(this.x, this.y, other.x, other.y);
@@ -85,10 +100,8 @@ class Pets{
 
 		//Once they touch or something just stop the movement
 		if(d < minDistance){
-			this.idle = true;
 			return true;
 		} else {
-			this.idle = false;
 			return false;
 		}
 	}

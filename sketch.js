@@ -46,8 +46,10 @@ function draw()
 		drawnPets[i].clicked();
 		for(let j = 0; j < drawnPets.length;j++){
 			if(i != j && drawnPets[i].intersects(drawnPets[j])){
-				drawnPets[i].idle = true;
-				drawnPets[j].idle = true;
+				//Once you are on the mouse position, push yourself away from the object
+				if(drawnPets[i].idle == true){
+					print("TETE");
+				}
 			}
 		}
 	}
